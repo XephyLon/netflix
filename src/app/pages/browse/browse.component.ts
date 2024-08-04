@@ -1,5 +1,7 @@
-import { Component, inject } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
+import { Component, Inject, inject, PLATFORM_ID } from '@angular/core';
+import { AuthService } from '../../shared/services/auth.service';
+import { isPlatformBrowser } from '@angular/common';
+
 
 @Component({
   selector: 'app-browse',
@@ -10,10 +12,20 @@ import { AuthService } from '../../services/auth.service';
 })
 export class BrowseComponent {
   auth = inject(AuthService)
-  userData = JSON.parse(sessionStorage.getItem('loginuser')!)
-  // ngOnInit(): void {
-  //   console.log(JSON.parse(sessionStorage.getItem('loginuser')!))
+  userData:any;
+  // if (isPlatformBrowser(this.platformid)) {
+  //   userData = JSON.parse(sessionStorage.getItem('loginuser')!)
+    
   // }
+  
+  platformid!:Object
+  constructor(@Inject(PLATFORM_ID) platfromid:Object){
+    this.platformid = platfromid
+      if (isPlatformBrowser(this.platformid)) {
+    this.userData = JSON.parse(sessionStorage.getItem('loginuser')!)
+    
+  }
+  }
 
   singOut(){
     this.auth.singOut()
