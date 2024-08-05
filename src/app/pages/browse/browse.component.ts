@@ -1,12 +1,13 @@
 import { Component, Inject, inject, PLATFORM_ID } from '@angular/core';
 import { AuthService } from '../../shared/services/auth.service';
 import { isPlatformBrowser } from '@angular/common';
+import { HeaderComponent } from "../../core/components/header/header.component";
 
 
 @Component({
   selector: 'app-browse',
   standalone: true,
-  imports: [],
+  imports: [HeaderComponent],
   templateUrl: './browse.component.html',
   styleUrl: './browse.component.scss'
 })
