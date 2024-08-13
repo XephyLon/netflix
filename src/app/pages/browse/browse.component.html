@@ -1,9 +1,6 @@
-<app-header [userImg] = "userData.picture" [userName]="userData.name"></app-header>
+<app-header
+  [userImg]="userData.picture"
+  [userName]="userData.name"
+></app-header>
 <app-banner></app-banner>
-<app-movie-carousel ></app-movie-carousel>
-<div>
-   <!-- @for (item of movies$ | async ; track $index) {} -->
-    {{(movies$|async)?.page}}
-   
-
-</div>
+<app-movie-carousel></app-movie-carousel>
