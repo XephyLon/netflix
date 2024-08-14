@@ -5,7 +5,7 @@ import { HeaderComponent } from "../../core/components/header/header.component";
 import { BannerComponent } from '../../core/components/banner/banner.component';
 import { MovieService } from '../../shared/services/movie.service';
 import { MovieCarouselComponent } from '../../shared/components/movie-carousel/movie-carousel.component';
-import { map, Observable, take } from 'rxjs';
+import {  map, Observable } from 'rxjs';
 import { movieData } from '../../shared/models/video';
 
 
@@ -20,13 +20,11 @@ export class BrowseComponent {
   auth = inject(AuthService)
   userData:any;
 movieService = inject(MovieService)
-movies$:Observable<movieData> = this.movieService.getMovies()
+movies$:Observable<any[]> = this.movieService.getMovies().pipe(map(data=> data.results))
 data!:any
 
 ngOnInit(): void {
- this.movieService.getMovies().subscribe(res=>
-  console.log(res)
- )
+this.movieService.getMovies().subscribe(res=> console.log(res))
 }
   
   platformid!:Object
