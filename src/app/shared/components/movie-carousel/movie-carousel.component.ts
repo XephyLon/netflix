@@ -1,14 +1,20 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import Swiper from 'swiper';
+import { Video } from '../../models/video';
+import { Observable } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-movie-carousel',
   standalone: true,
-  imports: [],
+  imports: [AsyncPipe],
   templateUrl: './movie-carousel.component.html',
   styleUrl: './movie-carousel.component.scss'
 })
 export class MovieCarouselComponent implements AfterViewInit {
+
+  @Input({required:true}) moviesData$!:Observable<Video[]>
+  @Input({required:true}) title!:string
 
   @ViewChild('swiperContainer') swiperContainer!: ElementRef;
   movies:any[]=[
