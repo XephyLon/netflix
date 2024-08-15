@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { movieData } from '../models/video';
+import { Observable } from 'rxjs';
 
 
 
@@ -27,7 +29,11 @@ const options = {
 export class MovieService {
   http = inject(HttpClient)
 
-  getMovies(){
-    return this.http.get<any>('https://api.themoviedb.org/3/discover/movie',options)
+  getMovies():Observable<movieData>{
+    return this.http.get<movieData>('https://api.themoviedb.org/3/discover/movie',options)
+  }
+
+  getTvShows():Observable<movieData>{
+    return this.http.get<movieData>('https://api.themoviedb.org/3/discover/tv', options)
   }
 }
