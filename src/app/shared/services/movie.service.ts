@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { movieData } from '../models/video';
-import { Observable } from 'rxjs';
+import { forkJoin, map, Observable } from 'rxjs';
 
 
 
@@ -28,6 +28,25 @@ const options = {
 
 export class MovieService {
   http = inject(HttpClient)
+  src = [
+    this.http.get<movieData>('https://api.themoviedb.org/3/discover/movie',options).pipe(map(res=>res.results)),
+    this.http.get<movieData>('https://api.themoviedb.org/3/discover/tv',options).pipe(map(res=>res.results))
+  ]
+  getAllData(){
+    return forkJoin(this.src)
+  }
+
+
+  private postsUrl = 'https://jsonplaceholder.typicode.com/posts';
+  private commentsUrl = 'https://jsonplaceholder.typicode.com/comments';
+
+
+
+  getData(): Observable<any[]> {
+    return forkJoin(
+      this.src
+    );
+  }
 
   getMovies():Observable<movieData>{
     return this.http.get<movieData>('https://api.themoviedb.org/3/discover/movie',options)

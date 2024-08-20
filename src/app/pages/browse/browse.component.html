@@ -4,5 +4,20 @@
  <!-- {{movies$ | json}} -->
 
  
-  
 
+
+@if (data$ | async ; as data) {
+     <div *ngIf="data$ | async as data; else loading">
+    <h2>Posts</h2>
+    <ul>
+      <li *ngFor="let post of data[0]">{{ post.original_title }}</li>
+    </ul>
+    <h2>Comments</h2>
+    <ul>
+      <li *ngFor="let comment of data[1]">{{ comment.original_name }}</li>
+    </ul>
+  </div>
+  <ng-template #loading>
+    <p>Loading...</p>
+  </ng-template>
+}
